@@ -4,6 +4,15 @@ const { resolve } = require('path');
 const app = express();
 const port = 3010;
 
+// Si on lance l'application Angular.js avec ng serve
+app.all('*', function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  next();
+});
+
+
 app.use(express.static('static'));
 
 app.get('/', (req, res) => {
@@ -11,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/hello', (req, res) => {
-  res.send('Hello World!');
+  res.json([]);
 });
 
 app.listen(port, () => {
